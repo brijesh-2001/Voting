@@ -43,19 +43,19 @@ const userSchema = new mongoose.Schema({
 
 
 userSchema.pre('save', async function(next){
-    const person = this;
+    const user= this;
 
     // Hash the password only if it has been modified (or is new)
-    if(!person.isModified('password')) return next();
+    if(!user.isModified('password')) return next();
     try{
         // hash password generation
         const salt = await bcrypt.genSalt(10);
 
         // hash password
-        const hashedPassword = await bcrypt.hash(person.password, salt);
+        const hashedPassword = await bcrypt.hash(user.password, salt);
         
         // Override the plain password with the hashed one
-        person.password = hashedPassword;
+        user.password = hashedPassword;
         next();
     }catch(err){
         return next(err);

@@ -91,6 +91,7 @@ router.get('/profile', jwtAuthMiddleware, async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 })
+//update the password
 
 router.put('/profile/password', jwtAuthMiddleware, async (req, res) => {
     try {
